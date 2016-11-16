@@ -10,25 +10,11 @@ add the dependency to your build.gradle:
 
 ## Usage
 
+继承 RecyclerHolder 。 (class RecyclerHolder extends RecyclerView.ViewHolder )
+在原有的 ViewHolder 上增加了一个抽象方法 onBindView(T t)。
+
 ```java
-
-    recyclerView.setAdapter(new RecyclerAdapter<NumberItem>(mItemListener) {
-        @Override
-        public ItemWrapper getItemHolder(int position) {
-            // 可获取到对应的model，可根据实际需求返回不一样的Item
-            // NumberItem numberItem = getItem(position);
-            return new ItemWrapper(R.layout.item, ItemHolder.class);
-        }
-    });
-
-    private OnItemListener mItemListener = new OnItemListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            NumberItem numberItem = mNumberList.get(position);
-            Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
-        }
-    };
-
+    //NumberItem 是 sample 中的 Model
     static class ItemHolder extends RecyclerHolder<NumberItem> {
 
         private TextView mTextView;
@@ -54,11 +40,35 @@ add the dependency to your build.gradle:
             mTextView.setText("+" + item.getNumber());
         }
     }
+```
 
+点击事件一般是少不了的，声明一个接口
+```java
     interface OnItemListener {
         void onItemClick(View view, int position);
     }
-
 ```
 
+设置 Adapter
+```java
+
+    recyclerView.setAdapter(new RecyclerAdapter<NumberItem>(mItemListener) {
+        @Override
+        public ItemWrapper getItemHolder(int position) {
+            // 可获取到对应的 model ，可根据实际需求返回不一样的 Item
+            // NumberItem numberItem = getItem(position);
+            return new ItemWrapper(R.layout.item, ItemHolder.class);
+        }
+    });
+
+    private OnItemListener mItemListener = new OnItemListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            NumberItem numberItem = mNumberList.get(position);
+            Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+```
+还有其它方便的方法
 README待完善。。
