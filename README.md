@@ -21,7 +21,7 @@ add the dependency to your build.gradle:
         private TextView mTextView;
         private OnItemListener mItemListener;
 
-        public PositiveHolder(View itemView, OnItemListener listener) {
+        public ItemHolder(View itemView, OnItemListener listener) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.text);
             mItemListener = listener;
@@ -75,6 +75,20 @@ add the dependency to your build.gradle:
 还有其它方便的方法
 
 README待完善。。
+
+## Proguard
+
+```
+-keepclassmembers public class * extends com.github.nukc.recycleradapter.RecyclerHolder {
+    public <init>(...);
+}
+```
+
+## Thanks
+
+- [EfficientAdapter](https://github.com/StanKocken/EfficientAdapter)
+
+封装用了反射，就是看到这个库才想到反射的。
 
 ## License
 
