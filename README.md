@@ -43,11 +43,19 @@ add the dependency to your build.gradle:
     }
 ```
 
-点击事件一般是少不了的，声明一个接口
+监听点击事件
 ```java
     interface OnItemListener {
         void onItemClick(View view, int position);
     }
+
+    private OnItemListener mItemListener = new OnItemListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            NumberItem numberItem = mNumberList.get(position);
+            Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
+        }
+    };
 ```
 
 设置 Adapter
@@ -61,14 +69,6 @@ add the dependency to your build.gradle:
             return new ItemWrapper(R.layout.item, ItemHolder.class);
         }
     });
-
-    private OnItemListener mItemListener = new OnItemListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            NumberItem numberItem = mNumberList.get(position);
-            Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
-        }
-    };
 
 ```
 
