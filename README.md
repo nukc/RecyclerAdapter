@@ -72,9 +72,39 @@ add the dependency to your build.gradle:
 
 ```
 
-还有其它方便的方法
+## About
 
-README待完善。。
+Adapter 方法说明
+
+> 对数据操作的方法，最后都会 notify
+
+方法名 | 备注
+:------------- | :-------------
+getItem(position) | 获取对应的 item
+getItemCount() | 获取 item 的数量
+getDataList() | 获取数据集合
+refresh(dataList) | 清空原先的数据再加入新的数据后刷新
+add(position, data) | 在指定位置插入
+add(data) | 在最后位置插入
+addAll(positionStart, dataList) | 在指定开始位置插入一个集合
+addAll(dataList) | 在最后位置插入一个集合
+move(fromPosition, toPosition) | 把 fromPosition 的 item 移动到 toPosition
+change(position, data) | 改变指定位置的数据，然后刷新 item
+remove(position) | 移除指定位置的 item
+clear() | 清空
+setItemListener(listener) | 设置监听，也可在构造方法中传入
+getItemHolder(position) | 获取指定位置的 ItemWrapper ，该方法由 ItemProvide 接口声明，继承 RecyclerAdapter 需要实现该方法
+
+ItemWrapper 说明
+
+> 该类用于控制 itemView 的 Type
+
+变量成员 | 备注
+:------------- | :-------------
+mLayoutResId | 布局文件Id
+mHolderClass | RecyclerHolder 的子类 Class
+
+欢迎大家 PR 、提 issues ，一起加入更多方便实用的方法。
 
 ## Proguard
 
@@ -86,9 +116,7 @@ README待完善。。
 
 ## Thanks
 
-- [EfficientAdapter](https://github.com/StanKocken/EfficientAdapter)
-
-封装用了反射，就是看到这个库才想到反射的。
+- [StanKocken/EfficientAdapter](https://github.com/StanKocken/EfficientAdapter)  封装用了反射，就是看到这个库才想到反射的。
 
 ## License
 
