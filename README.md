@@ -10,6 +10,20 @@ add the dependency to your build.gradle:
 
 ## Usage
 
+设置 Adapter
+```java
+
+    recyclerView.setAdapter(new RecyclerAdapter<NumberItem>(mItemListener) {
+        @Override
+        public ItemWrapper getItemHolder(int position) {
+            // 可获取到对应的 model ，可根据实际需求返回不一样的 Item
+            // NumberItem numberItem = getItem(position);
+            return new ItemWrapper(R.layout.item, ItemHolder.class);
+        }
+    });
+
+```
+
 继承 RecyclerHolder 。 (class RecyclerHolder extends RecyclerView.ViewHolder )
 
 在原有的 ViewHolder 上增加了一个抽象方法 onBindView(T t)。
@@ -56,20 +70,6 @@ add the dependency to your build.gradle:
             Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
         }
     };
-```
-
-设置 Adapter
-```java
-
-    recyclerView.setAdapter(new RecyclerAdapter<NumberItem>(mItemListener) {
-        @Override
-        public ItemWrapper getItemHolder(int position) {
-            // 可获取到对应的 model ，可根据实际需求返回不一样的 Item
-            // NumberItem numberItem = getItem(position);
-            return new ItemWrapper(R.layout.item, ItemHolder.class);
-        }
-    });
-
 ```
 
 ## About
