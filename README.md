@@ -5,7 +5,7 @@
 
 add the dependency to your build.gradle:
 ```
-    compile 'com.github.nukc:recycleradapter:0.2'
+    compile 'com.github.nukc:recycleradapter:0.2.1'
 ```
 
 ## Usage
