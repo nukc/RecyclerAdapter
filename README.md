@@ -1,11 +1,11 @@
 # RecyclerAdapter
-在想着尽可能保留原味，又想简化代码工作量的情况下封装了RecyclerView.Adapter。
+在想着尽可能保留原味，又想简化代码工作量的情况下封装了 RecyclerView.Adapter。
 
 ## Installation
 
 add the dependency to your build.gradle:
 ```
-    compile 'com.github.nukc:recycleradapter:0.1'
+    compile 'com.github.nukc:recycleradapter:0.2'
 ```
 
 ## Usage

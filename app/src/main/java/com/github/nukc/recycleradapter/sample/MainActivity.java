@@ -100,21 +100,10 @@ public class MainActivity extends AppCompatActivity {
     static class NegativeHolder extends RecyclerHolder<NumberItem> {
 
         private TextView mTextView;
-        private OnItemListener mItemListener;
 
-        public NegativeHolder(View itemView, OnItemListener listener) {
+        public NegativeHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.text);
-            mItemListener = listener;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mItemListener != null) {
-                        mItemListener.onItemClick(view, getAdapterPosition());
-                    }
-                }
-            });
         }
 
         @Override

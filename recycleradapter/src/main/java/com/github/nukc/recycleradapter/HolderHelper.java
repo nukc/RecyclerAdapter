@@ -25,10 +25,6 @@ class HolderHelper {
                 continue;
             }
 
-            if (listener != null && parameterTypes.length == 1) {
-                continue;
-            }
-
             try {
                 Object viewHolder = null;
                 if (isAssignableFrom(parameterTypes, View.class)) {
