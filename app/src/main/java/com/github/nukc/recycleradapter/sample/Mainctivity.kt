@@ -36,7 +36,7 @@ class Mainctivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        val imageUrl = "https://github.com/nukc/RecyclerAdapter/blob/master/art/banner.png"
+        val imageUrl = "https://raw.githubusercontent.com/nukc/RecyclerAdapter/kotlin/art/banner.png"
         val banners: List<Banner> = mutableListOf(Banner(imageUrl))
         val chosen = Chosen(imageUrl, "Chosen")
 
