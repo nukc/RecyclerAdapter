@@ -1,0 +1,13 @@
+ext {
+
+    androidBuildToolsVersion = "28.0.3"
+    androidMinSdkVersion = 16
+    androidTargetSdkVersion = 28
+    androidCompileSdkVersion = 28
+
+    androidx = '1.0.0'
+    appcompat = '1.0.2'
+
+    support_lib_version = '28.0.0'
+    glide_version = '4.8.0'
+}

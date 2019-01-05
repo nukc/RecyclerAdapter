@@ -1,135 +1,49 @@
 # RecyclerAdapter
-在想着尽可能保留原味，又想简化代码工作量的情况下封装了 RecyclerView.Adapter。
 
-## Installation
+> 简单易懂的 RecyclerView 通用 adapter 封装
 
-add the dependency to your build.gradle:
-```
-    compile 'com.github.nukc:recycleradapter:0.2.1'
-```
+<p align="center">
+    <a href="https://travis-ci.org/nukc/recycleradapter"><img src="https://img.shields.io/travis/nukc/recycleradapter.svg?style=flat-square"/></a>
+    <a href="https://github.com/nukc/recycleradapter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache-757575.svg?style=flat-square"/></a>
+</p>
+
+
+## Intention
+
+2 年前的旧版本是用反射写的，当时写的时候就是想用不同于其它库的实现方法写一个，但是由于是反射，平常使用是没有问题，但总是感觉不好，
+后来又更多的开始在写 Android 了，Kotlin 也出正式版了，就捣鼓了一下。这个版本实现方法很简单，代码也很少。
+
 
 ## Usage
 
-设置 Adapter
 ```java
+recycler_view.adapter = RecyclerAdapter.explosion()
+            .register(bannerProvider)
+            .register(chosenProvider)
+            .register(object : PureLayoutProvider<Int>(Integer::class.java) {
+                override fun getLayoutResId(): Int {
+                    return R.layout.item_pure
+                }
 
-    recyclerView.setAdapter(new RecyclerAdapter<NumberItem>(mItemListener) {
-        @Override
-        public ItemWrapper getItemHolder(int position) {
-            // 可获取到对应的 model ，可根据实际需求返回不一样的 Item
-            // NumberItem numberItem = getItem(position);
-            return new ItemWrapper(R.layout.item, ItemHolder.class);
-        }
-    });
-
-```
-
-继承 RecyclerHolder 。 (class RecyclerHolder extends RecyclerView.ViewHolder )
-
-在原有的 ViewHolder 上增加了一个抽象方法 onBindView(T t)。
-
-```java
-    //NumberItem 是 sample 中的 Model
-    static class ItemHolder extends RecyclerHolder<NumberItem> {
-
-        private TextView mTextView;
-        private OnItemListener mItemListener;
-
-        public ItemHolder(View itemView, OnItemListener listener) {
-            super(itemView);
-            mTextView = (TextView) itemView.findViewById(R.id.text);
-            mItemListener = listener;
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mItemListener != null) {
-                        mItemListener.onItemClick(view, getAdapterPosition());
+                override fun initHolder(holder: RecyclerView.ViewHolder, itemView: View) {
+                    itemView.findViewById<View>(R.id.layout_likest).setOnClickListener {
+                        //
+                    }
+                    itemView.findViewById<View>(R.id.layout_editor_picks).setOnClickListener {
+                        //
+                    }
+                    itemView.findViewById<View>(R.id.tv_more).setOnClickListener {
+                        //
                     }
                 }
-            });
-        }
-
-        @Override
-        public void onBindView(NumberItem item) {
-            mTextView.setText("+" + item.getNumber());
-        }
-    }
-```
-
-监听点击事件
-```java
-    interface OnItemListener {
-        void onItemClick(View view, int position);
-    }
-
-    private OnItemListener mItemListener = new OnItemListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            NumberItem numberItem = mNumberList.get(position);
-            Toast.makeText(MainActivity.this, "number=" + numberItem.getNumber(), Toast.LENGTH_SHORT).show();
-        }
-    };
-```
-
-## About
-
-Adapter 方法说明
-
-> 对数据操作的方法，最后都会 notify
-
-方法名 | 备注
-:------------- | :-------------
-getItem(position) | 获取对应的 item
-getItemCount() | 获取 item 的数量
-getDataList() | 获取数据集合
-refresh(dataList) | 清空原先的数据再加入新的数据后刷新
-add(position, data) | 在指定位置插入
-add(data) | 在最后位置插入
-addAll(positionStart, dataList) | 在指定开始位置插入一个集合
-addAll(dataList) | 在最后位置插入一个集合
-move(fromPosition, toPosition) | 把 fromPosition 的 item 移动到 toPosition
-change(position, data) | 改变指定位置的数据，然后刷新 item
-remove(position) | 移除指定位置的 item
-clear() | 清空
-setItemListener(listener) | 设置监听，也可在构造方法中传入
-getItemHolder(position) | 获取指定位置的 ItemWrapper ，该方法由 ItemProvide 接口声明，继承 RecyclerAdapter 需要实现该方法
-
-ItemWrapper 说明
-
-> 该类用于控制 itemView 的 Type
-
-变量成员 | 备注
-:------------- | :-------------
-mLayoutResId | 布局文件Id
-mHolderClass | RecyclerHolder 的子类 Class
-
-欢迎大家 PR 、提 issues ，一起加入更多方便实用的方法。
-
-## Proguard
+            })
+            .register(multiProvider)
+            .setItems(arrayListOf(banners, arrayListOf(chosen), 1))
+            .build()
 
 ```
--keepclassmembers public class * extends com.github.nukc.recycleradapter.RecyclerHolder {
-    public <init>(...);
-}
-```
 
-## Thanks
-
-- [StanKocken/EfficientAdapter](https://github.com/StanKocken/EfficientAdapter)  封装用了反射，就是看到这个库才想到反射的。
 
 ## License
 
-    Copyright 2016, nukc
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Apache License, Version 2.0
