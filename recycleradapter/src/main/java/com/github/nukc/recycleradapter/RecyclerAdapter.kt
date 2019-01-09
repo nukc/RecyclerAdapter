@@ -72,6 +72,9 @@ class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
     }
 
     companion object {
+        /**
+         * 为美好的世界送上祝福！
+         */
         fun explosion(): Builder {
             return Builder()
         }

@@ -11,9 +11,14 @@ abstract class HolderProvider<T : Any, VH : RecyclerView.ViewHolder>(type: Class
         return provideHolder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
     }
 
+    /**
+     * This method calls {@link #onCreateViewHolder(ViewGroup, int)} to create a new
+     * {@link RecyclerView#ViewHolder}
+     * provide ViewHolder of the
+     */
     abstract fun provideHolder(itemView: View): VH
 
-    override fun bind(holder: VH, data: T, payload: List<Any>) {
+    override fun bind(holder: VH, data: T, payloads: List<Any>) {
         bind(holder, data)
     }
 

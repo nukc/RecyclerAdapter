@@ -15,10 +15,14 @@ abstract class SimpleProvider<T : Any>(type: Class<*>) : BaseProvider<T, Recycle
         }
     }
 
+    /**
+     * This method calls {@link #onCreateViewHolder(ViewGroup, int)} to create a new
+     * {@link RecyclerView#ViewHolder} and initializes
+     */
     open fun initHolder(holder: RecyclerView.ViewHolder, itemView: View) {
     }
 
-    override fun bind(holder: RecyclerView.ViewHolder, data: T, payload: List<Any>) {
+    override fun bind(holder: RecyclerView.ViewHolder, data: T, payloads: List<Any>) {
         bind(holder, data)
     }
 

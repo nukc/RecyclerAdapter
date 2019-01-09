@@ -13,7 +13,7 @@ abstract class MultiTypeProvider<T : Any, VH : RecyclerView.ViewHolder>(type: Cl
 
     abstract fun provideHolder(itemView: View, viewType: Int): VH
 
-    override fun bind(holder: VH, data: T, payload: List<Any>) {
+    override fun bind(holder: VH, data: T, payloads: List<Any>) {
         bind(holder, data)
     }
 
@@ -28,6 +28,12 @@ abstract class MultiTypeProvider<T : Any, VH : RecyclerView.ViewHolder>(type: Cl
     override fun onViewDetachedFromWindow(holder: VH) {
     }
 
+    /**
+     * provider all view type of items
+     * 需要先提供全部类型的 layoutResId
+     * @see Builder.register
+     * @return IntArray 数组形式
+     */
     abstract fun providerAllLayoutResId(): IntArray
 
     final override fun getLayoutResId(): Int = -1
