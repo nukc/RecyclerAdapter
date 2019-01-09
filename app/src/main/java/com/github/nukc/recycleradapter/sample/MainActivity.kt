@@ -25,7 +25,7 @@ import com.github.nukc.recycleradapter.sample.model.Chosen
 import com.github.nukc.recycleradapter.sample.model.NumberItem
 import kotlinx.android.synthetic.main.activity_main.*
 
-class Mainctivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var adapter: RecyclerAdapter? = null
 
@@ -51,15 +51,15 @@ class Mainctivity : AppCompatActivity() {
 
                     override fun initHolder(holder: RecyclerView.ViewHolder, itemView: View) {
                         itemView.findViewById<View>(R.id.layout_likest).setOnClickListener {
-                            Toast.makeText(this@Mainctivity, "每日最赞", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "每日最赞", Toast.LENGTH_SHORT).show()
 
                         }
                         itemView.findViewById<View>(R.id.layout_editor_picks).setOnClickListener {
-                            Toast.makeText(this@Mainctivity, "编辑精选", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "编辑精选", Toast.LENGTH_SHORT).show()
 
                         }
                         itemView.findViewById<View>(R.id.tv_more).setOnClickListener {
-                            Toast.makeText(this@Mainctivity, "更多", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "更多", Toast.LENGTH_SHORT).show()
                         }
                     }
                 })
@@ -97,7 +97,7 @@ class Mainctivity : AppCompatActivity() {
             banner.setPages(creator, data)
                     ?.setOnItemClickListener { position ->
                         val item = data[position]
-                        Toast.makeText(this@Mainctivity, item.image, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, item.image, Toast.LENGTH_SHORT).show()
                     }
                     ?.setCanLoop(true)
                     ?.startTurning(3000)
@@ -201,7 +201,7 @@ class Mainctivity : AppCompatActivity() {
             }
         }
 
-        override fun provideHolder(itemView: View): MultiHolder {
+        override fun provideHolder(itemView: View, viewType: Int): MultiHolder {
             return MultiHolder(itemView)
         }
 

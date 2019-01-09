@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class MultiTypeProvider<T : Any, VH : RecyclerView.ViewHolder>(type: Class<*>) : BaseProvider<T, VH>(type) {
 
     final override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        return provideHolder(LayoutInflater.from(parent.context).inflate(viewType, parent, false))
+        return provideHolder(LayoutInflater.from(parent.context).inflate(viewType, parent, false), viewType)
     }
 
-    abstract fun provideHolder(itemView: View): VH
+    abstract fun provideHolder(itemView: View, viewType: Int): VH
 
     override fun bind(holder: VH, data: T, payload: List<Any>) {
         bind(holder, data)
