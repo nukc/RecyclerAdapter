@@ -13,7 +13,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name '封装Recycler.Adapter'    //项目描述
+                name '简单易懂的 RecyclerView 通用 adapter 封装'
                 url siteUrl
                 // Set your license
                 licenses {
@@ -66,14 +66,19 @@ artifacts {
 }
 
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+boolean isHasFile = false
+File file = new File(project.rootDir.path + File.separator + "local.properties");
+if (file.exists()){
+    isHasFile = true
+    properties.load(file.newDataInputStream())
+}
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = isHasFile ? properties.getProperty("bintray.user") : System.getenv("bintray.user")
+    key = isHasFile ? properties.getProperty("bintray.apikey") : System.getenv("bintray.apikey")
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "RecyclerAdapter"    //发布到JCenter上的项目名字
+        name = "RecyclerAdapter"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
