@@ -3,6 +3,7 @@
 > 简单易懂的 RecyclerView 通用 adapter 封装
 
 <p align="center">
+    <a href="https://bintray.com/nukc/maven/RecyclerAdapter/_latestVersion"><img src="https://img.shields.io/bintray/v/nukc/maven/RecyclerAdapter.svg?style=flat-square"></a>
     <a href="https://travis-ci.org/nukc/recycleradapter"><img src="https://img.shields.io/travis/nukc/recycleradapter.svg?style=flat-square"/></a>
     <a href="https://github.com/nukc/recycleradapter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache-757575.svg?style=flat-square"/></a>
 </p>
@@ -13,6 +14,12 @@
 2 年前的旧版本是用反射写的，当时写的时候就是想用不同于其它库的实现方法写一个，但是由于是反射，平常使用是没有问题，但总是感觉不好，
 后来又更多的开始在写 Android 了，Kotlin 也出正式版了，就捣鼓了一下。这个版本实现方法很简单，代码也很少。
 
+## Installation
+
+add the dependency to your build.gradle:
+```groovy
+    implementation 'com.github.nukc:recycleradapter:1.0'
+```
 
 ## Usage
 
@@ -106,7 +113,7 @@ private class MultiHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         itemView.setOnClickListener {
             data?.let {
-				// do some
+                // do some
             }
         }
     }
@@ -156,7 +163,7 @@ provider
 
 
 
-#### Other methods
+### Other methods
 
 Provider: 其它一些可覆写方法
 ```kotlin
