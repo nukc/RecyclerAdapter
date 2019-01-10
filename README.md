@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://bintray.com/nukc/maven/RecyclerAdapter/_latestVersion"><img src="https://img.shields.io/bintray/v/nukc/maven/RecyclerAdapter.svg?style=flat-square"></a>
-    <a href="https://travis-ci.org/nukc/recycleradapter"><img src="https://img.shields.io/travis/nukc/recycleradapter.svg?style=flat-square"/></a>
+    <a href="https://travis-ci.org/nukc/RecyclerAdapter"><img src="https://img.shields.io/travis/nukc/RecyclerAdapter.svg?style=flat-square"/></a>
     <a href="https://github.com/nukc/recycleradapter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache-757575.svg?style=flat-square"/></a>
 </p>
 
@@ -34,14 +34,9 @@ recycler_view.adapter = RecyclerAdapter.explosion()
 
                 override fun initHolder(holder: RecyclerView.ViewHolder, itemView: View) {
                     itemView.findViewById<View>(R.id.layout_likest).setOnClickListener {
-                        //
+                        // do something
                     }
-                    itemView.findViewById<View>(R.id.layout_editor_picks).setOnClickListener {
-                        //
-                    }
-                    itemView.findViewById<View>(R.id.tv_more).setOnClickListener {
-                        //
-                    }
+                    // ..
                 }
             })
             .register(multiProvider)
@@ -63,7 +58,7 @@ BaseProvider，以下为具体实现类
 - MultiTypeProvider 遇到同个数据类型且有多个 viewType 的时候（比如聊天界面）
 
 
-#### PureLayoutProvider
+> #### PureLayoutProvider
 
 ```kotlin
 	object : PureLayoutProvider<Int>(Integer::class.java) {
@@ -73,21 +68,16 @@ BaseProvider，以下为具体实现类
 
                 override fun initHolder(holder: RecyclerView.ViewHolder, itemView: View) {
                     itemView.findViewById<View>(R.id.layout_likest).setOnClickListener {
-                        //
+                        // do something
                     }
-                    itemView.findViewById<View>(R.id.layout_editor_picks).setOnClickListener {
-                        //
-                    }
-                    itemView.findViewById<View>(R.id.tv_more).setOnClickListener {
-                        //
-                    }
+                    // ..
                 }
             }
 ```
 
-#### MultiProvider
+> #### MultiProvider
 
-Model
+Model and Viewholder
 
 ```kotlin
 public class NumberItem {
@@ -113,7 +103,7 @@ private class MultiHolder(view: View) : RecyclerView.ViewHolder(view) {
     init {
         itemView.setOnClickListener {
             data?.let {
-                // do some
+                // do something
             }
         }
     }
@@ -133,10 +123,10 @@ provider
             return intArrayOf(R.layout.item_left, R.layout.item_right)
         }
 
-		/**
-		* 根据 position 或 data 返回该位置的 layoutResId，同时当做该 item 的 view Type
+        /**
+        * 根据 position 或 data 返回该位置的 layoutResId，同时当做该 item 的 view Type
         * @see RecyclerAdapter.getItemViewType
-		*/
+        */
         override fun getLayoutResId(position: Int, data: NumberItem): Int {
             return when (data.number % 2) {
                 0 -> R.layout.item_left
@@ -144,11 +134,11 @@ provider
             }
         }
 
-		/**
-		* 可根据 viewType 返回 ViewHolder
-		* @param itemView Inflate a new view hierarchy from the viewType
-		* @param viewType = getLayoutResId
-		*/
+        /**
+        * 可根据 viewType 返回 ViewHolder
+        * @param itemView Inflate a new view hierarchy from the viewType
+        * @param viewType = getLayoutResId
+        */
         override fun provideHolder(itemView: View, viewType: Int): MultiHolder {
             return MultiHolder(itemView)
         }
