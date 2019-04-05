@@ -11,14 +11,13 @@
 
 ## Intention
 
-2 年前的旧版本是用反射写的，当时写的时候就是想用不同于其它库的实现方法写一个，但是由于是反射，平常使用是没有问题，但总是感觉不好，
-后来又更多的开始在写 Android 了，Kotlin 也出正式版了，就捣鼓了一下。这个版本实现方法很简单，代码也很少。
+需要迁移到 AndroidX，封装实现方法很简单，代码也很少。
 
 ## Installation
 
 add the dependency to your build.gradle:
 ```groovy
-    implementation 'com.github.nukc:recycleradapter:1.0'
+    implementation 'com.github.nukc:recycleradapter:1.0.1'
 ```
 
 ## Usage

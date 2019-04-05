@@ -4,7 +4,9 @@ package com.github.nukc.recycleradapter
 fun <T : Any> getItemType(item: T): Class<T> {
     if (item is Collection<*>) {
         for (v in item.iterator()) {
-            return v?.javaClass as Class<T>
+            if (v != null) {
+                return getItemType(v as T)
+            }
         }
     }
     return item.javaClass
