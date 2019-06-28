@@ -2,11 +2,13 @@ package com.github.nukc.recycleradapter
 
 import android.util.SparseArray
 import android.view.ViewGroup
+import androidx.collection.ArrayMap
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
 
     private val providers: SparseArray<BaseProvider<Any, RecyclerView.ViewHolder>> = builder.providers
+    private val findCache = ArrayMap<Class<Any>, BaseProvider<Any, RecyclerView.ViewHolder>>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return providers[viewType].onCreateViewHolder(parent, viewType)
@@ -56,17 +58,28 @@ class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
 
     private fun findProvider(item: Any): BaseProvider<Any, RecyclerView.ViewHolder>? {
         val itemType = getItemType(item)
-        var provider: BaseProvider<Any, RecyclerView.ViewHolder>? = null
+        var provider: BaseProvider<Any, RecyclerView.ViewHolder>? = findCache[itemType]
+        if (provider != null) {
+            return provider
+        }
         for (i in 0 until providers.size()) {
-            providers.valueAt(i).let {
-                if (it.type == itemType) {
-                    provider = it
-                }
-            }
-            if (provider != null) {
+            val p = providers.valueAt(i)
+            if (p.type == itemType || itemType.superclass == p.type) {
+                provider = p
+                findCache[itemType] = provider
                 return provider
             }
+
+            // try to compare item interfaces
+            itemType.interfaces.forEach {
+                if (it == p.type) {
+                    provider = p
+                    findCache[itemType] = provider
+                    return provider
+                }
+            }
         }
+
         throw RuntimeException("Can not find the provider, item<${item.javaClass}>: the runtime Java class of this object" +
                 ", is register?, itemType: $itemType")
     }

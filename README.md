@@ -17,7 +17,7 @@
 
 add the dependency to your build.gradle:
 ```groovy
-    implementation 'com.github.nukc:recycleradapter:1.0.1'
+    implementation 'com.github.nukc:recycleradapter:1.1.0'
 ```
 
 ## Usage
