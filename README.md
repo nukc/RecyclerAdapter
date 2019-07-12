@@ -13,7 +13,7 @@
 
 需要迁移到 AndroidX，封装实现方法很简单，代码也很少。
 
-<img src="https://raw.githubusercontent.com/nukc/RecyclerAdapter/kotlin/art/10e.jpg" width="100">
+<img src="https://raw.githubusercontent.com/nukc/RecyclerAdapter/kotlin/art/10e.jpg" width="200">
 
 ## Installation
 
