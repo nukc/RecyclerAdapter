@@ -117,6 +117,16 @@ class Builder {
         return this
     }
 
+    fun addItems(items: List<Any>): Builder {
+        this.items.addAll(items)
+        return this
+    }
+
+    fun addItem(item: Any): Builder {
+        this.items.add(item)
+        return this
+    }
+
     fun build(): RecyclerAdapter {
         return RecyclerAdapter(this)
     }

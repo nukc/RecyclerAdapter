@@ -10,19 +10,19 @@ abstract class BaseAdapter(val items: MutableList<Any>) : RecyclerView.Adapter<R
     }
 
     @MainThread
-    fun refresh(items: MutableList<Any>) {
+    fun refresh(items: List<Any>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
     }
 
     @MainThread
-    fun addAll(items: MutableList<Any>) {
+    fun addAll(items: List<Any>) {
         addAll(this.itemCount, items)
     }
 
     @MainThread
-    fun addAll(positionStart: Int, items: MutableList<Any>) {
+    fun addAll(positionStart: Int, items: List<Any>) {
         this.items.addAll(positionStart, items)
         notifyItemRangeInserted(positionStart, items.size)
     }
