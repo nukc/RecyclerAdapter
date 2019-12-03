@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 6
-        versionName "1.2.0"
+        versionCode 7
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 configurations {
@@ -29,8 +33,8 @@ configurations {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     javadocDeps "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.recyclerview:recyclerview:$androidx"

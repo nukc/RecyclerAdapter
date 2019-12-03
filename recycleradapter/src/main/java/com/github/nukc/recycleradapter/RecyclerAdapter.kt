@@ -4,6 +4,7 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.collection.ArrayMap
 import androidx.recyclerview.widget.RecyclerView
+import com.github.nukc.recycleradapter.dsl.DslProvider
 
 class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
 
@@ -101,13 +102,20 @@ class Builder {
 
     @Suppress("UNCHECKED_CAST")
     fun <T : Any, VH : RecyclerView.ViewHolder> register(provider: BaseProvider<T, VH>): Builder {
-        if (provider is MultiTypeProvider) {
-            provider.providerAllLayoutResId()
-                    .forEach {
-                        providers.put(it, provider as BaseProvider<Any, RecyclerView.ViewHolder>)
-                    }
-        } else {
-            providers.put(provider.getLayoutResId(), provider as BaseProvider<Any, RecyclerView.ViewHolder>)
+        when (provider) {
+            is MultiTypeProvider -> {
+                provider.providerAllLayoutResId().forEach {
+                    providers.put(it, provider as BaseProvider<Any, RecyclerView.ViewHolder>)
+                }
+            }
+            is DslProvider -> {
+                provider.resIds.forEach {
+                    providers.put(it, provider as BaseProvider<Any, RecyclerView.ViewHolder>)
+                }
+            }
+            else -> {
+                providers.put(provider.getLayoutResId(), provider as BaseProvider<Any, RecyclerView.ViewHolder>)
+            }
         }
         return this
     }

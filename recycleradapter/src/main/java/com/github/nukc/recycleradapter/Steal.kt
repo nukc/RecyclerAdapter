@@ -11,7 +11,3 @@ fun <T : Any> getItemType(item: T): Class<T> {
     }
     return item.javaClass
 }
-
-//typealias Binder<T> = (RecyclerView.ViewHolder, T) -> Unit
-
-//typealias Items = MutableList<Any>

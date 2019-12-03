@@ -40,7 +40,7 @@ install {
 }
 
 // This is the library version used when deploying the artifact
-version = "1.2.0"
+version = "1.0"
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -67,7 +67,7 @@ artifacts {
 
 Properties properties = new Properties()
 boolean isHasFile = false
-File file = new File(project.rootDir.path + File.separator + "local.properties");
+File file = new File(project.rootDir.path + File.separator + "local.properties")
 if (file.exists()){
     isHasFile = true
     properties.load(file.newDataInputStream())
@@ -78,7 +78,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "RecyclerAdapter"
+        name = "RecyclerAdapter-DSL"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]

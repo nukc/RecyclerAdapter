@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/convenient_banner"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -24,6 +24,52 @@ add the dependency to your build.gradle:
 
 ## Usage
 
+> DSL 写法
+
+```kotlin
+// 返回 adapter
+recycler_view.setup(LinearLayoutManager(this)) {
+    hasStableIds = true
+    
+    renderItem<Int> {
+    	res(R.layout.item_pure)
+    }
+    
+    renderItem<NumberItem> {
+        res(R.layout.item_left, R.layout.item_right) // 支持同个类型多个布局
+        getItemViewType {
+            when (data.number % 2) {
+                0 -> R.layout.item_left
+                else -> R.layout.item_right
+            }
+        }
+        bind {
+            // 可在这里更新视图
+            tv_text.text = data.number.toString()
+        }
+    }
+    
+    renderItem<List<Banner>> {
+        type = Banner::class.java  // 当 item 的数据是数组，需要设置 type
+        res(R.layout.view_banner) {
+            // 可在这里对试图进行设置，比如点击事件
+        }
+        bind {
+           // ...
+        }
+        
+        // ... 还有对应 Adapter 的其它一些方法
+    }
+    
+}
+```
+
+
+
+
+
+
+
 ```kotlin
 recycler_view.adapter = RecyclerAdapter.explosion()
             .register(bannerProvider)
@@ -143,7 +189,7 @@ provider
         override fun provideHolder(itemView: View, viewType: Int): MultiHolder {
             return MultiHolder(itemView)
         }
-        
+
         override fun bind(holder: MultiHolder, data: NumberItem) {
             holder.data = data
             holder.tvText.text = data.number.toString()
