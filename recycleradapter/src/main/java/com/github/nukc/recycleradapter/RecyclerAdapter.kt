@@ -4,7 +4,6 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import androidx.collection.ArrayMap
 import androidx.recyclerview.widget.RecyclerView
-import com.github.nukc.recycleradapter.dsl.DslProvider
 
 class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
 

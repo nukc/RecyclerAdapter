@@ -1,1 +1,1 @@
-include ':app', ':recycleradapter'
+include ':app', ':recycleradapter', ':recycleradapter-dsl'

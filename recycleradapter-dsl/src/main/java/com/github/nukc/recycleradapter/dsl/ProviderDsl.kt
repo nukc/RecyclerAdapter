@@ -3,6 +3,7 @@ package com.github.nukc.recycleradapter.dsl
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import com.github.nukc.recycleradapter.DslProvider
 
 class ProviderDsl<T : Any>(var type: Class<*>) {
     private var resIds: MutableList<Int> = mutableListOf()
@@ -80,9 +81,9 @@ class ProviderDsl<T : Any>(var type: Class<*>) {
         getItemViewType = block
     }
 
-    fun build(): DslProvider<T> {
+    fun build(): DslProvider<T, ViewHolderDsl<T>> {
 
-        return object : DslProvider<T>(type, resIds) {
+        return object : DslProvider<T, ViewHolderDsl<T>>(type, resIds) {
 
             override fun getLayoutResId() = resIds.first()
 
