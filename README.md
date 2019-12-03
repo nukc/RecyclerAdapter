@@ -4,6 +4,7 @@
 
 <p align="center">
     <a href="https://bintray.com/nukc/maven/RecyclerAdapter/_latestVersion"><img src="https://img.shields.io/bintray/v/nukc/maven/RecyclerAdapter.svg?style=flat-square"></a>
+    <a href="https://bintray.com/nukc/maven/RecyclerAdapter-DSL/_latestVersion"><img src="https://img.shields.io/badge/dsl-1.0-orange?style=flat-square"></a>
     <a href="https://travis-ci.org/nukc/RecyclerAdapter"><img src="https://img.shields.io/travis/nukc/RecyclerAdapter.svg?style=flat-square"/></a>
     <a href="https://github.com/nukc/recycleradapter/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache-757575.svg?style=flat-square"/></a>
 </p>
@@ -22,7 +23,7 @@ add the dependency to your build.gradle:
 如需使用 DSL，请依赖此版本
 
 ```groovy
-	implementation 'com.github.nukc:recycleradapter-dsl:1.0'
+    implementation 'com.github.nukc:recycleradapter-dsl:1.0'
 ```
 
 或者
