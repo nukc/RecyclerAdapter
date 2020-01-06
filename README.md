@@ -20,16 +20,14 @@
 
 add the dependency to your build.gradle:
 
-如需使用 DSL，请依赖此版本
-
-```groovy
-    implementation 'com.github.nukc:recycleradapter-dsl:1.0'
-```
-
-或者
-
 ```groovy
     implementation 'com.github.nukc:recycleradapter:1.2.0'
+```
+
+如需使用 DSL，再依赖此拓展
+
+```groovy
+    implementation 'com.github.nukc:recycleradapter-dsl:1.0@aar'
 ```
 
 ## Usage
