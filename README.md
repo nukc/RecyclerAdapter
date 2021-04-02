@@ -52,14 +52,14 @@ kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/n
 recycler_view.setup(LinearLayoutManager(this)) {
     hasStableIds = true
     
-    renderItem<Int> {
+    renderItem<Int, ItemPureBinding> {
     	res(R.layout.item_pure)
         getViewBinding = {
             ItemPureBinding.bind(it)
         }
     }
     
-    renderItem<NumberItem> {
+    renderItem<NumberItem, ItemLeftBinding> {
         res(R.layout.item_left, R.layout.item_right) // 支持同个类型多个布局
         getViewBinding = {
             ItemLeftBinding.bind(it)
@@ -72,11 +72,11 @@ recycler_view.setup(LinearLayoutManager(this)) {
         }
         bind {
             // 可在这里更新视图
-            tv_text.text = data.number.toString()
+            binding.tvText.text = data.number.toString()
         }
     }
     
-    renderItem<List<Banner>> {
+    renderItem<List<Banner>, ViewBannerBinding> {
         type = Banner::class.java  // 当 item 的数据是数组，需要设置 type
         getViewBinding = {
             ViewBannerBinding.bind(it)
