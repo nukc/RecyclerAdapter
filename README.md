@@ -35,6 +35,7 @@ add the dependency to your build.gradle:
 ```
 
 如需使用 DSL，再依赖此拓展, if need DSL。
+
 kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/nukc/RecyclerAdapter/blob/dsl/README-synthetic.md)
 
 ```groovy
@@ -50,15 +51,19 @@ kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/n
 // 返回 adapter
 recycler_view.setup(LinearLayoutManager(this)) {
     hasStableIds = true
-    getViewBinding = {
-        ItemLeftBinding.bind(it)
-    }
+    
     renderItem<Int> {
     	res(R.layout.item_pure)
+        getViewBinding = {
+            ItemPureBinding.bind(it)
+        }
     }
     
     renderItem<NumberItem> {
         res(R.layout.item_left, R.layout.item_right) // 支持同个类型多个布局
+        getViewBinding = {
+            ItemLeftBinding.bind(it)
+        }
         getItemViewType {
             when (data.number % 2) {
                 0 -> R.layout.item_left
