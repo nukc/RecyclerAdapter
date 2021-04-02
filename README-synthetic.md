@@ -18,28 +18,17 @@
 
 ## Installation
 
-Add it in your root build.gradle at the end of repositories:
-```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
-
 add the dependency to your build.gradle:
 
 ```groovy
-    implementation 'com.github.nukc:RecyclerAdapter:1.3.0'
+    implementation 'com.github.nukc:recycleradapter:1.2.0'
 ```
 
-如需使用 DSL，再依赖此拓展, if need DSL。
-kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/nukc/RecyclerAdapter/blob/dsl/README-synthetic.md)
+如需使用 DSL，再依赖此拓展
 
 ```groovy
-    // ViewBinding Version
-    implementation 'com.github.nukc:RecyclerAdapter:dsl-v1.1'
+    // kotlinx.android.synthetic
+    implementation 'com.github.nukc:recycleradapter-dsl:1.0@aar'  
 ```
 
 ## Usage
@@ -50,9 +39,7 @@ kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/n
 // 返回 adapter
 recycler_view.setup(LinearLayoutManager(this)) {
     hasStableIds = true
-    getViewBinding = {
-        ItemLeftBinding.bind(it)
-    }
+    
     renderItem<Int> {
     	res(R.layout.item_pure)
     }
@@ -73,9 +60,6 @@ recycler_view.setup(LinearLayoutManager(this)) {
     
     renderItem<List<Banner>> {
         type = Banner::class.java  // 当 item 的数据是数组，需要设置 type
-        getViewBinding = {
-            ViewBannerBinding.bind(it)
-        }
         res(R.layout.view_banner) {
             // 可在这里对试图进行设置，比如点击事件
         }
@@ -149,7 +133,7 @@ BaseProvider，以下为具体实现类
 
 Model and Viewholder
 
-```java
+```kotlin
 public class NumberItem {
     private int number;
 
@@ -165,8 +149,7 @@ public class NumberItem {
         this.number = number;
     }
 }
-```
-```kotlin
+
 private class MultiHolder(view: View) : RecyclerView.ViewHolder(view) {
     val tvText: TextView = view.findViewById(R.id.tv_text)
     var data: NumberItem? = null
