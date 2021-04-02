@@ -16,14 +16,14 @@ import com.bigkoo.convenientbanner.holder.Holder
 import com.bumptech.glide.Glide
 import com.github.nukc.recycleradapter.RecyclerAdapter
 import com.github.nukc.recycleradapter.dsl.setup
+import com.github.nukc.recycleradapter.sample.databinding.ItemChosenBinding
+import com.github.nukc.recycleradapter.sample.databinding.ItemLeftBinding
+import com.github.nukc.recycleradapter.sample.databinding.ItemPureBinding
+import com.github.nukc.recycleradapter.sample.databinding.ViewBannerBinding
 import com.github.nukc.recycleradapter.sample.model.Banner
 import com.github.nukc.recycleradapter.sample.model.Chosen
 import com.github.nukc.recycleradapter.sample.model.NumberItem
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_chosen.*
-import kotlinx.android.synthetic.main.item_left.*
-import kotlinx.android.synthetic.main.item_pure.*
-import kotlinx.android.synthetic.main.view_banner.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,19 +43,23 @@ class MainActivity : AppCompatActivity() {
         adapter = recycler_view.setup(LinearLayoutManager(this)) {
             hasStableIds = true
 
-            renderItem<List<Banner>> {
+            renderItem<List<Banner>, ViewBannerBinding> {
                 type = Banner::class.java
+                getViewBinding = {
+                    ViewBannerBinding.bind(it)
+                }
                 res(R.layout.view_banner)
 
                 bind {
-                    if (convenient_banner.childCount > 0 && convenient_banner.getChildAt(0) is ViewGroup) {
-                        val viewPager = convenient_banner.getChildAt(0) as ViewGroup
+                    if (binding.convenientBanner.childCount > 0 && binding.convenientBanner.getChildAt(0) is ViewGroup) {
+                        val viewPager = binding.convenientBanner.getChildAt(0) as ViewGroup
                         if (viewPager.childCount > 0) {
                             return@bind
                         }
                     }
                     // setup banner
-                    (convenient_banner as ConvenientBanner<Any>).setPages(creator, data)
+
+                    (binding.convenientBanner as ConvenientBanner<Any>).setPages(creator, data)
                             ?.setOnItemClickListener { position ->
                                 val item = data[position]
                                 Toast.makeText(this@MainActivity, item.image, Toast.LENGTH_SHORT).show()
@@ -66,41 +70,50 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            renderItem<List<Chosen>> {
+            renderItem<List<Chosen>, ItemChosenBinding> {
                 type = Chosen::class.java
+                getViewBinding = {
+                    ItemChosenBinding.bind(it)
+                }
                 res(R.layout.item_chosen) {
-                    view_pager.setPageTransformer(true, AlphaAndScalePageTransformer())
-                    view_pager.pageMargin = Utils.dip2px(itemView.context, 15f)
+                    binding.viewPager.setPageTransformer(true, AlphaAndScalePageTransformer())
+                    binding.viewPager.pageMargin = Utils.dip2px(itemView.context, 15f)
                 }
 
                 bind {
-                    if (view_pager.adapter == null) {
-                        view_pager.adapter = ChosenPagerAdapter(data)
-                        view_pager.offscreenPageLimit = data.size - 1
+                    if (binding.viewPager.adapter == null) {
+                        binding.viewPager.adapter = ChosenPagerAdapter(data)
+                        binding.viewPager.offscreenPageLimit = data.size - 1
                         if (data.size > 3) {
-                            view_pager.post {
-                                view_pager.currentItem = 1
+                            binding.viewPager.post {
+                                binding.viewPager.currentItem = 1
                             }
                         }
                     }
                 }
             }
 
-            renderItem<Int> {
+            renderItem<Int, ItemPureBinding> {
+                getViewBinding = {
+                    ItemPureBinding.bind(it)
+                }
                 res(R.layout.item_pure) {
-                    layout_likest.setOnClickListener {
+                    binding.layoutLikest.setOnClickListener {
                         Toast.makeText(this@MainActivity, "每日最赞", Toast.LENGTH_SHORT).show()
                     }
-                    layout_editor_picks.setOnClickListener {
+                    binding.layoutEditorPicks.setOnClickListener {
                         Toast.makeText(this@MainActivity, "编辑精选", Toast.LENGTH_SHORT).show()
                     }
-                    tv_more.setOnClickListener {
+                    binding.tvMore.setOnClickListener {
                         Toast.makeText(this@MainActivity, "更多", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
-            renderItem<NumberItem> {
+            renderItem<NumberItem, ItemLeftBinding> {
+                getViewBinding = {
+                    ItemLeftBinding.bind(it)
+                }
                 res(R.layout.item_left, R.layout.item_right)
 
                 getItemViewType {
@@ -111,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 bind {
-                    tv_text.text = data.number.toString()
+                    binding.tvText.text = data.number.toString()
                 }
             }
         }

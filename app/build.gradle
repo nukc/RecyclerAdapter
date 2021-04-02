@@ -23,8 +23,8 @@ android {
         disable 'GoogleAppIndexingWarning'
     }
 
-    androidExtensions {
-        experimental = true
+    buildFeatures {
+        viewBinding true
     }
 }
 

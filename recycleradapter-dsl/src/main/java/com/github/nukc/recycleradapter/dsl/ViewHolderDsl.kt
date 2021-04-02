@@ -1,13 +1,11 @@
 package com.github.nukc.recycleradapter.dsl
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.extensions.LayoutContainer
+import androidx.viewbinding.ViewBinding
 
 /**
  * @author Nukc.
  */
-class ViewHolderDsl<T : Any>(override val containerView: View) :
-    RecyclerView.ViewHolder(containerView), LayoutContainer {
+class ViewHolderDsl<T : Any, VB : ViewBinding>(val binding: VB) : RecyclerView.ViewHolder(binding.root) {
     lateinit var data: T
 }
