@@ -72,6 +72,13 @@ class ProviderDsl<T : Any, VB : ViewBinding>(var type: Class<*>) {
     }
 
     /**
+     * 同 [androidx.recyclerview.widget.RecyclerView.Adapter.onFailedToRecycleView]
+     */
+    fun onFailed(block: ViewHolderDsl<T, VB>.() -> Boolean) {
+        onFailed = block
+    }
+
+    /**
      * 同 [androidx.recyclerview.widget.RecyclerView.Adapter.getItemId]
      */
     fun getItemId(block: (position: Int) -> Long) {
