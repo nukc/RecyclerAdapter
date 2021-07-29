@@ -30,17 +30,11 @@ Add it in your root build.gradle at the end of repositories:
 
 add the dependency to your build.gradle:
 
-```groovy
-    implementation 'com.github.nukc:RecyclerAdapter:1.3.0'
-```
-
-如需使用 DSL，再依赖此拓展, if need DSL。
-
 kotlinx.android.synthetic (LayoutContainer) Version: [v1.0](https://github.com/nukc/RecyclerAdapter/blob/dsl/README-synthetic.md)
 
 ```groovy
     // ViewBinding Version
-    implementation 'com.github.nukc:RecyclerAdapter:dsl-v1.1'
+    implementation 'com.github.nukc:RecyclerAdapter:dsl-v1.2.1'
 ```
 
 ## Usage
@@ -73,6 +67,9 @@ recycler_view.setup(LinearLayoutManager(this)) {
         bind {
             // 可在这里更新视图
             binding.tvText.text = data.number.toString()
+        }
+        partialUpdate {
+            // payloads 不为空的时候，在此局部更新
         }
     }
     

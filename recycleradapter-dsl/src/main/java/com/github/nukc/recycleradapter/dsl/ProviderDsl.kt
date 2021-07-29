@@ -11,6 +11,7 @@ class ProviderDsl<T : Any, VB : ViewBinding>(var type: Class<*>) {
     private var resIds: MutableList<Int> = mutableListOf()
     private var resSetup: (ViewHolderDsl<T, VB>.() -> Unit)? = null
     private var bind: ViewHolderDsl<T, VB>.() -> Unit = {}
+    private var partialUpdate: ViewHolderDsl<T, VB>.(payloads: List<Any>) -> Unit = {}
     private var onRecycled: ViewHolderDsl<T, VB>.() -> Unit = {}
     private var onAttached: ViewHolderDsl<T, VB>.() -> Unit = {}
     private var onDetached: ViewHolderDsl<T, VB>.() -> Unit = {}
@@ -48,6 +49,14 @@ class ProviderDsl<T : Any, VB : ViewBinding>(var type: Class<*>) {
      */
     fun bind(block: ViewHolderDsl<T, VB>.() -> Unit) {
         bind = block
+    }
+
+    /**
+     * 用于局部更新，当 [androidx.recyclerview.widget.RecyclerView.Adapter.onBindViewHolder] 的 payloads 不为空的时候
+     * 如果 payloads 为空，会执行 bind 方法，不执行此方法
+     */
+    fun partialUpdate(block: ViewHolderDsl<T, VB>.(payloads: List<Any>) -> Unit) {
+        partialUpdate = block
     }
 
     /**
@@ -112,7 +121,11 @@ class ProviderDsl<T : Any, VB : ViewBinding>(var type: Class<*>) {
 
             override fun bind(holder: ViewHolderDsl<T, VB>, data: T, payloads: List<Any>) {
                 holder.data = data
-                holder.bind()
+                if (payloads.isNullOrEmpty()) {
+                    holder.bind()
+                } else {
+                    holder.partialUpdate(payloads)
+                }
             }
 
             override fun onViewRecycled(holder: ViewHolderDsl<T, VB>) = holder.onRecycled()
