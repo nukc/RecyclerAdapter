@@ -78,10 +78,39 @@ class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
                     return provider
                 }
             }
+
+            if (compareSuperclass(itemType, p.type)) {
+                provider = p
+                findCache[itemType] = provider
+                return provider
+            }
         }
 
         throw RuntimeException("Can not find the provider, item<${item.javaClass}>: the runtime Java class of this object" +
                 ", is register?, itemType: $itemType")
+    }
+
+    private fun compareSuperclass(itemType: Class<*>, pType: Class<*>): Boolean {
+        val superclass = itemType.superclass
+        if (superclass == pType) {
+            return true
+        }
+        if (compareInterfaces(superclass, pType)) {
+            return true
+        }
+        if (compareSuperclass(superclass, pType)) {
+            return true
+        }
+        return false
+    }
+
+    private fun compareInterfaces(itemType: Class<*>, pType: Class<*>): Boolean {
+        itemType.interfaces.forEach {
+            if (it == pType) {
+                return true
+            }
+        }
+        return false
     }
 
     companion object {
