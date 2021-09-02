@@ -42,7 +42,6 @@ dependencies {
     api project(':recycleradapter')
 }
 
-apply from: '../bintray.gradle'
 repositories {
     mavenCentral()
 }
