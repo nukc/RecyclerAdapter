@@ -91,7 +91,7 @@ class RecyclerAdapter(builder: Builder) : BaseAdapter(builder.items) {
     }
 
     private fun compareSuperclass(itemType: Class<*>, pType: Class<*>): Boolean {
-        val superclass = itemType.superclass
+        val superclass = itemType.superclass ?: return false
         if (superclass == pType) {
             return true
         }
